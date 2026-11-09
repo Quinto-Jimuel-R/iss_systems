@@ -1,0 +1,58 @@
+@php
+
+    $isLogin = false;
+
+    if(isset($_SESSION['rapidx_user_id'])){
+        $isLogin = true;
+    }
+    
+@endphp
+
+@if($isLogin)
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>ISS | @yield('title')</title>
+
+    <!-- CSS LINKS -->
+    @include('shared.css_links.css_links')
+</head>
+
+<input type="hidden" id="loginEmployeeId" value="<?php echo $_SESSION["rapidx_user_id"]; ?>">
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <div class="app-wrapper">
+
+            @include('shared.pages.nav')
+
+            @include('shared.pages.sidebar')
+
+            @yield('content_page')
+
+            @include('shared.pages.footer')
+
+        </div>
+
+        <!-- JS LINKS -->
+        @include('shared.js_links.js_links')
+        @yield('js_content')
+</body>
+<script>
+// VerifyUser(loginEmployeeId);
+</script>
+
+</html>
+@else
+    <script type="text/javascript">
+        window.location = "../Rapidxv2/";
+    </script>
+@endif
